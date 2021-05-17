@@ -1,0 +1,27 @@
+#pragma once
+
+#include "FreeRTOS.h"
+#include "gpio_lab.h"
+#include "lpc40xx.h"
+#include "lpc_peripherals.h"
+#include "queue.h"
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+
+typedef enum {
+  UART_2,
+  UART_3,
+} uart_number_e;
+
+void uart_lab_pin__init(void);
+
+void uart_lab_init_baud_rate(uart_number_e uart, uint32_t baud_rate);
+
+void uart_lab__init(uart_number_e uart, uint32_t peripheral_clock, uint32_t baud_rate);
+
+bool uart_lab__polled_get(uart_number_e uart, char *input_byte);
+
+bool uart_lab__polled_put(uart_number_e uart, char output_byte);
+
+bool uart_lab__get_char_from_queue(char *input_byte, uint32_t timeout);
